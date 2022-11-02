@@ -1,0 +1,12 @@
+DEFFRAME 0 1 "foo"
+
+DEFFRAME 0 1 "bar":
+    SAMPLE-RATE: 1.0
+    DIRECTION: "tx"
+
+DEFFRAME 0 1 "baz":
+    INITIAL-FREQUENCY: 1e8
+
+DEFFRAME 0 "quux":
+    SAMPLE-RATE: 1.0
+    INITIAL-FREQUENCY: 1e8
