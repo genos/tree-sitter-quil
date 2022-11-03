@@ -1,0 +1,28 @@
+{
+  "name": "tree-sitter-quil",
+  "version": "0.0.0",
+  "description": "Quil grammar for tree-sitter",
+  "author": "genos",
+  "license": "MIT",
+  "main": "bindings/node",
+  "scripts": {
+    "test": "tree-sitter test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/genos/tree-sitter-quil.git"
+  },
+  "keywords": [
+    "parsing"
+  ],
+  "bugs": {
+    "url": "https://github.com/genos/tree-sitter-quil/issues"
+  },
+  "homepage": "https://github.com/genos/tree-sitter-quil#readme",
+  "dependencies": {
+    "nan": "^2.17.0"
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.7"
+  }
+}
