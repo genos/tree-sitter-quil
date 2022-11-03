@@ -1,0 +1,12 @@
+==============
+Hadamard Gate
+=============
+
+H 0
+
+---
+
+(quil
+  (gate
+    (name (identifier))
+    (qubit_designator)))

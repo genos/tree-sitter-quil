@@ -166,10 +166,39 @@
   {
     "type": "declare",
     "named": true,
-    "fields": {},
+    "fields": {
+      "declaration": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "[",
+            "named": false
+          },
+          {
+            "type": "]",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "identifier",
@@ -191,7 +220,79 @@
       "required": true,
       "types": [
         {
-          "type": "indented_instrs",
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "halt",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
           "named": true
         },
         {
@@ -199,11 +300,63 @@
           "named": true
         },
         {
+          "type": "nop",
+          "named": true
+        },
+        {
           "type": "params",
           "named": true
         },
         {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
           "type": "qubit_designator",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
           "named": true
         }
       ]
@@ -218,7 +371,79 @@
       "required": true,
       "types": [
         {
-          "type": "indented_instrs",
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "halt",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
           "named": true
         },
         {
@@ -226,11 +451,63 @@
           "named": true
         },
         {
+          "type": "nop",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
           "type": "qubit_designator",
           "named": true
         },
         {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
           "type": "variables",
+          "named": true
+        },
+        {
+          "type": "wait",
           "named": true
         }
       ]
@@ -344,7 +621,79 @@
       "required": true,
       "types": [
         {
-          "type": "indented_instrs",
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "halt",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
           "named": true
         },
         {
@@ -352,7 +701,59 @@
           "named": true
         },
         {
+          "type": "nop",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
           "type": "qubit_designator",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
           "named": true
         }
       ]
@@ -599,21 +1000,6 @@
     }
   },
   {
-    "type": "gate_no_qubits",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "halt",
     "named": true,
     "fields": {}
@@ -622,164 +1008,6 @@
     "type": "include",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "indented_instrs",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "instr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "instr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "capture",
-          "named": true
-        },
-        {
-          "type": "classical_binary",
-          "named": true
-        },
-        {
-          "type": "classical_comparison",
-          "named": true
-        },
-        {
-          "type": "classical_unary",
-          "named": true
-        },
-        {
-          "type": "convert",
-          "named": true
-        },
-        {
-          "type": "declare",
-          "named": true
-        },
-        {
-          "type": "def_label",
-          "named": true
-        },
-        {
-          "type": "delay",
-          "named": true
-        },
-        {
-          "type": "exchange",
-          "named": true
-        },
-        {
-          "type": "fence",
-          "named": true
-        },
-        {
-          "type": "gate",
-          "named": true
-        },
-        {
-          "type": "gate_no_qubits",
-          "named": true
-        },
-        {
-          "type": "halt",
-          "named": true
-        },
-        {
-          "type": "include",
-          "named": true
-        },
-        {
-          "type": "jump",
-          "named": true
-        },
-        {
-          "type": "jump_unless",
-          "named": true
-        },
-        {
-          "type": "jump_when",
-          "named": true
-        },
-        {
-          "type": "load",
-          "named": true
-        },
-        {
-          "type": "measure",
-          "named": true
-        },
-        {
-          "type": "move",
-          "named": true
-        },
-        {
-          "type": "nop",
-          "named": true
-        },
-        {
-          "type": "pragma",
-          "named": true
-        },
-        {
-          "type": "pulse",
-          "named": true
-        },
-        {
-          "type": "raw_capture",
-          "named": true
-        },
-        {
-          "type": "reset",
-          "named": true
-        },
-        {
-          "type": "set_frequency",
-          "named": true
-        },
-        {
-          "type": "set_phase",
-          "named": true
-        },
-        {
-          "type": "set_scale",
-          "named": true
-        },
-        {
-          "type": "shift_frequency",
-          "named": true
-        },
-        {
-          "type": "shift_phase",
-          "named": true
-        },
-        {
-          "type": "store",
-          "named": true
-        },
-        {
-          "type": "swap_phase",
-          "named": true
-        },
-        {
-          "type": "wait",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "int_n",
@@ -1285,11 +1513,35 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
-      "required": true,
+      "multiple": true,
+      "required": false,
       "types": [
         {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
           "type": "comment",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
           "named": true
         },
         {
@@ -1309,6 +1561,10 @@
           "named": true
         },
         {
+          "type": "def_label",
+          "named": true
+        },
+        {
           "type": "def_measure_calibration",
           "named": true
         },
@@ -1317,7 +1573,103 @@
           "named": true
         },
         {
-          "type": "instr",
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "halt",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
+          "named": true
+        },
+        {
+          "type": "nop",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
           "named": true
         }
       ]

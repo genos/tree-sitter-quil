@@ -1,0 +1,12 @@
+===============
+Gate No Qubits
+===============
+
+QWERTYUIOP
+
+---
+
+(quil
+  (gate
+    (name
+      (identifier))))

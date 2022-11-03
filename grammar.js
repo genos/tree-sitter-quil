@@ -8,7 +8,7 @@ module.exports = grammar({
     // ],  // handle other whitespace ourselves
 
   rules: {
-    quil: $ => $._all_instr,
+    quil: $ => repeat(seq($._all_instr, repeat1($._newline))),
 
     _all_instr: $ => choice(
       $.comment,
@@ -18,10 +18,10 @@ module.exports = grammar({
       $.def_waveform,
       $.def_calibration,
       $.def_measure_calibration,
-      $.instr,
+      $._instr,
     ),
 
-    instr: $ => choice(
+    _instr: $ => choice(
       $.fence,
       $.pulse,
       $.delay,
@@ -54,7 +54,6 @@ module.exports = grammar({
       $.classical_binary,
       $.classical_comparison,
       $.include,
-      $.gate_no_qubits,
     ),
 
     comment: _ => token(seq("#", /[^\n]*/, "\n")),
@@ -71,7 +70,7 @@ module.exports = grammar({
       optional(seq("AS", "MATRIX")),
       optional($.variables),
       ":",
-      optional($.matrix),
+      $.matrix,
     ),
 
     def_gate_as_permutation: $ => seq(
@@ -84,15 +83,17 @@ module.exports = grammar({
       $.matrix_row,
     ),
 
-    def_pauli_gate: $ => seq(
-      "DEFGATE",
-      $.name,
-      optional($.variables),
-      $.qubit_variables,
-      "AS",
-      "PAULI-SUM",
-      ":",
-      repeat(seq($._newline_tab, $.pauli_term)),
+    def_pauli_gate: $ => prec.left(1,
+      seq(
+        "DEFGATE",
+        $.name,
+        optional($.variables),
+        $.qubit_variables,
+        "AS",
+        "PAULI-SUM",
+        ":",
+        repeat(seq($._newline_tab, $.pauli_term)),
+      ),
     ),
 
     pauli_term: $ => seq($.name, "(", $.expression, ")", $.qubit_variables),
@@ -103,13 +104,13 @@ module.exports = grammar({
       optional($.variables),
       repeat($.qubit_designator),
       ":",
-      $.indented_instrs,
+      $._indented_instrs,
     ),
 
     def_frame: $ => seq(
       "DEFFRAME",
       $.frame,
-      repeat(seq(":", repeat1($.frame_spec))),
+      prec.left(1, optional(seq(":", repeat1($.frame_spec)))),
     ),
     frame_spec: $ => seq(
       $._newline_tab,
@@ -130,7 +131,7 @@ module.exports = grammar({
       $.waveform_name,
       optional($.params),
       ":",
-      optional($.matrix),
+      $.matrix,
     ),
 
     def_calibration: $ => seq(
@@ -139,7 +140,7 @@ module.exports = grammar({
       optional($.params),
       repeat1($.qubit_designator),
       ":",
-      $.indented_instrs,
+      $._indented_instrs,
     ),
 
     def_measure_calibration: $ => seq(
@@ -148,21 +149,20 @@ module.exports = grammar({
       $.qubit_designator,
       optional($.name),
       ":",
-      $.indented_instrs,
+      $._indented_instrs,
     ),
 
     gate: $ => seq(
       optional($.modifiers),
       $.name,
       optional($.params),
-      repeat1($.qubit_designator),
+      repeat($.qubit_designator),
     ),
-    gate_no_qubits: $ => $.name,  // TODO does this need precedence like lark?
 
     modifiers: $ => repeat1($.modifier),
     modifier: _ => choice("CONTROLLED", "DAGGER", "FORKED"),
 
-    indented_instrs: $ => repeat1(seq($._newline_tab, $.instr)),
+    _indented_instrs: $ => prec.left(1, repeat1(seq($._newline_tab, $._instr))),
 
     params: $ => seq(
         "(",
@@ -172,7 +172,7 @@ module.exports = grammar({
     ),
     param: $ => $.expression,
 
-    matrix: $ => repeat1(seq($._newline_tab, $.matrix_row)),
+    matrix: $ => prec.left(1, repeat1(seq($._newline_tab, $.matrix_row))),
     matrix_row: $ => seq(
       $.expression,
       repeat(seq(",", $.expression)),
@@ -254,9 +254,14 @@ module.exports = grammar({
 
     declare: $ => seq(
       "DECLARE",
-      $.identifier,
-      $.identifier,
-      optional(seq("[", $._int, "]")),
+      field("variable", $.identifier),
+      field(
+        "declaration",
+        choice(
+          seq($.identifier, "[", $._int, "]"),
+          $.identifier,
+        ),
+      ),
       optional(seq("SHARING", $.identifier, repeat($.offset_descriptor))),
     ),
     offset_descriptor: $ => seq("OFFSET", $._int, $.identifier),
