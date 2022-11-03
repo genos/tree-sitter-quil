@@ -1,3 +1,7 @@
+============
+DEFWAVEFORM
+============
+
 DEFFRAME 0 "xy"
 
 DEFWAVEFORM my_custom_waveform 1.0:
@@ -8,3 +12,5 @@ DEFWAVEFORM my_custom_parameterized_waveform(%a) 1.0:
 
 PULSE 0 "xy" my_custom_waveform
 PULSE 0 "xy" my_custom_parameterized_waveform(a: 1.0)
+
+---

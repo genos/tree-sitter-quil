@@ -57,7 +57,7 @@ module.exports = grammar({
       $.gate_no_qubits,
     ),
 
-    comment: $ => token(seq("#", /[^\n]*/, "\n")),
+    comment: _ => token(seq("#", /[^\n]*/, "\n")),
 
     def_gate: $ => choice(
       $.def_gate_matrix,
@@ -71,7 +71,7 @@ module.exports = grammar({
       optional(seq("AS", "MATRIX")),
       optional($.variables),
       ":",
-      $.matrix,
+      optional($.matrix),
     ),
 
     def_gate_as_permutation: $ => seq(
@@ -80,7 +80,7 @@ module.exports = grammar({
       "AS",
       "PERMUTATION",
       ":",
-      $.newline_tab,
+      $._newline_tab,
       $.matrix_row,
     ),
 
@@ -92,17 +92,16 @@ module.exports = grammar({
       "AS",
       "PAULI-SUM",
       ":",
-      $.pauli_terms,
+      repeat(seq($._newline_tab, $.pauli_term)),
     ),
 
-    pauli_terms: $ => repeat(seq($._newline_tab, $.pauli_term)),
     pauli_term: $ => seq($.name, "(", $.expression, ")", $.qubit_variables),
 
     def_circuit: $ => seq(
       "DEFCIRCUIT",
-      $.name, 
+      $.name,
       optional($.variables),
-      optional($.qubit_designators),
+      repeat($.qubit_designator),
       ":",
       $.indented_instrs,
     ),
@@ -118,7 +117,7 @@ module.exports = grammar({
       ":",
       choice($.expression, $._string),
     ),
-    frame_attr: $ => choice(
+    frame_attr: _ => choice(
       "SAMPLE-RATE",
       "INITIAL-FREQUENCY",
       "DIRECTION",
@@ -129,16 +128,16 @@ module.exports = grammar({
     def_waveform: $ => seq(
       "DEFWAVEFORM",
       $.waveform_name,
-      $.params,
+      optional($.params),
       ":",
-      $.matrix
+      optional($.matrix),
     ),
 
     def_calibration: $ => seq(
       "DEFCAL",
       $.name,
-      $.params,
-      $.qubit_designators,
+      optional($.params),
+      repeat1($.qubit_designator),
       ":",
       $.indented_instrs,
     ),
@@ -156,45 +155,40 @@ module.exports = grammar({
       optional($.modifiers),
       $.name,
       optional($.params),
-      $.qubit_designators,
+      repeat1($.qubit_designator),
     ),
-    gate_no_qubits: $ => $.name,  // TODO will this need precedence like lark?
+    gate_no_qubits: $ => $.name,  // TODO does this need precedence like lark?
 
     modifiers: $ => repeat1($.modifier),
-    modifier: $ => choice("CONTROLLED", "DAGGER", "FORKED"),
+    modifier: _ => choice("CONTROLLED", "DAGGER", "FORKED"),
 
     indented_instrs: $ => repeat1(seq($._newline_tab, $.instr)),
 
-    params: $ => optional(
-      seq(
+    params: $ => seq(
         "(",
         $.param,
         repeat(seq(",", $.param)),
         ")"
-      )
     ),
     param: $ => $.expression,
 
-    matrix: $ => repeat($._newline_tab, $.matrix_row),
+    matrix: $ => repeat1(seq($._newline_tab, $.matrix_row)),
     matrix_row: $ => seq(
       $.expression,
       repeat(seq(",", $.expression)),
     ),
 
     expression: $ => choice(
-      $.product,
-      seq($.expression, "+", $.expression),
-      seq($.expression, "-", $.product),
+      prec.left(3, $.product),
+      prec.left(2, seq($.expression, "+", $.expression)),
+      prec.left(1, seq($.expression, "-", $.product)),
     ),
     product: $ => choice(
       $.power,
       seq($.product, "*", $.power),
       seq($.product, "/", $.power),
     ),
-    power: $ => choice(
-      $.atom,
-      seq($.atom, "^", $.power),
-    ),
+    power: $ => choice($.atom, seq($.atom, "^", $.power)),
     atom: $ => choice(
       $.number,
       seq("-", $.atom),
@@ -202,15 +196,15 @@ module.exports = grammar({
       seq($.function, "(", $.expression, ")"),
       seq("(", $.expression, ")"),
       $.variable,
-      $.add,
+      $.addr,
     ),
 
-    variables: $ => optional(
-      seq("(", $.variable, repeat(seq(",", $.variable)), ")")
-    ),
+    variables: $ => seq("(", $.variable, repeat(seq(",", $.variable)), ")"),
     variable: $ => seq("%", $.identifier),
 
-    fence: $ => choice("FENCE", seq("FENCE", $.qubit_designators)),
+    // Instructions
+
+    fence: $ => choice("FENCE", seq("FENCE", repeat1($.qubit_designator))),
     pulse: $ => seq(
       optional($.nonblocking),
       "PULSE",
@@ -219,14 +213,11 @@ module.exports = grammar({
     ),
 
     delay: $ => choice($.delay_qubits, $.delay_frames),
-    delay_qubits: $ => choice(
-      seq("DELAY", $.qubit_designators, $.expression),
-      seq("DELAY", $.qubit_designators),
-    ),
+    delay_qubits: $ => seq("DELAY", repeat1($.qubit_designator), optional($.expression)),
     delay_frames: $ => seq(
       "DELAY",
       $.qubit_designator,
-      repeat1('"', $.name, '"'),
+      repeat1(seq('"', $.name, '"')),
       $.expression,
     ),
 
@@ -265,23 +256,234 @@ module.exports = grammar({
       "DECLARE",
       $.identifier,
       $.identifier,
-      optional(seq("[", $.int, "]")),
+      optional(seq("[", $._int, "]")),
       optional(seq("SHARING", $.identifier, repeat($.offset_descriptor))),
     ),
+    offset_descriptor: $ => seq("OFFSET", $._int, $.identifier),
 
+    capture: $ => seq(
+      optional($.nonblocking),
+      "CAPTURE",
+      $.frame,
+      $.waveform,
+      $.addr,
+    ),
 
-    name: $ => $.identifier,
-    identifier: $ => seq(
-      choice("_", $.letter),
+    raw_capture: $ => seq(
+      optional($.nonblocking),
+      "RAW-CAPTURE",
+      $.frame,
+      $.waveform,
+      $.addr,
+    ),
+
+    addr: $ => choice(
+      prec.left(2, $.identifier),
+      prec.left(1, seq(optional($.identifier), "[", $._int, "]")),
+    ),
+
+    pragma: $ => seq(
+      "PRAGMA",
+      choice($.identifier, $.keyword),
+      repeat($.pragma_name),
+      optional($._string),
+    ),
+    pragma_name: $ => choice(
+      prec.left(3, $.identifier),
+      prec.left(2, $.keyword),
+      prec.left(1, $._int),
+    ),
+
+    measure: $ => seq("MEASURE", $.qubit_designator, optional($.addr)),
+
+    halt: _ => "HALT",
+
+    nop: _ => "NOP",
+
+    include: $ => seq("INCLUDE", $._string),
+
+    def_label: $ => seq("LABEL", $.label),
+
+    jump: $ => seq("JUMP", $.label),
+    jump_when: $ => seq("JUMP-WHEN", $.label),
+    jump_unless: $ => seq("JUMP-UNLESS", $.label),
+    label: $ => seq("@", $.name),
+
+    reset: $ => seq("RESET", $.qubit),
+    wait: _ => "WAIT",
+    store: $ => seq("STORE", $.name, $.addr, choice($.addr, $.number)),
+    load: $ => seq("LOAD", $.addr, $.name, $.addr),
+    convert: $ => seq("CONVERT", $.addr, $.addr),
+    exchange: $ => seq("EXCHANGE", $.addr, $.addr),
+    move: $ => seq("MOVE", $.addr, choice($.addr, $.signed_number)),
+    classical_unary: $ => seq(
+      choice("NEG", "NOT", "TRUE", "FALSE"),
+      $.addr,
+    ),
+    classical_binary: $ => choice($.logical_binary_op, $.arithmetic_binary_op),
+    logical_binary_op: $ => seq(
+      choice("AND", "OR", "IOR", "XOR"),
+      $.addr,
+      choice($.addr, $.int_n),
+    ),
+    arithmetic_binary_op: $ => seq(
+      choice("ADD", "SUB", "MUL", "DIV"),
+      $.addr,
+      choice($.addr, $.signed_number),
+    ),
+    classical_comparison: $ => seq(
+      choice("EQ", "GT", "GE", "LT", "LE"),
+      $.addr,
+      $.addr,
+      choice($.addr, $.signed_number),
+    ),
+
+    // Qubits, frames, waveforms
+
+    qubit_designator: $ => prec.left(1, choice($.qubit, $.variable)),
+    qubit: $ => prec.left(1, $.int_n),
+    qubit_variables: $ => repeat1($.qubit_variable),
+    qubit_variable: $ => $.identifier,
+    named_param: $ => seq($.identifier, ":", $.expression),
+    waveform: $ => seq(
+      $.waveform_name,
       optional(
         seq(
-          repeat(choice("_", "-", $.letter, $.digit)),
-          choice("_", $.letter, $.digit),
-        )
-      )
+          "(",
+          $.named_param,
+          repeat(seq(",", $.named_param)),
+          ")",
+        ),
+      ),
     ),
+    waveform_name: $ => seq($.name, optional(seq("/", $.name))),
+    frame: $ => seq(repeat1($.qubit_designator), '"', $.name, '"'),
+
+    function: _ => choice("SIN", "COS", "SQRT", "EXP", "CIS"),
+
+    // Numbers
+
+    number: $ => choice(
+      seq(choice($.int_n, $.float_n), "i"),
+      $.int_n,
+      $.float_n,
+      "i",
+      "pi",
+    ),
+    int_n: $ => prec.left(1, $._int),
+    float_n: $ => $._float,
+    signed_number: $ => seq(choice("+", "-"), $.number),
+
+    // Lexer
+
+    nonblocking: _ => "NONBLOCKING",
+
+    keyword: $ => choice(
+
+      "DEFGATE",
+      "DEFCIRCUIT",
+      "MEASURE",
+
+      "LABEL",
+      "HALT",
+      "JUMP",
+      "JUMP-WHEN",
+      "JUMP-UNLESS",
+
+      "RESET",
+      "WAIT",
+      "NOP",
+      "INCLUDE",
+      "PRAGMA",
+
+      "DECLARE",
+      "SHARING",
+      "OFFSET",
+
+      "AS",
+      "MATRIX",
+      "PERMUTATION",
+      "PAULI-SUM",
+
+      "NEG",
+      "NOT",
+      "TRUE",  // Deprecated
+      "FALSE",  // Deprecated
+
+      "AND",
+      "IOR",
+      "XOR",
+      "OR",    // Deprecated
+
+      "ADD",
+      "SUB",
+      "MUL",
+      "DIV",
+
+      "MOVE",
+      "EXCHANGE",
+      "CONVERT",
+
+      "EQ",
+      "GT",
+      "GE",
+      "LT",
+      "LE",
+
+      "LOAD",
+      "STORE",
+
+      "pi",
+      "i",
+
+      "SIN",
+      "COS",
+      "SQRT",
+      "EXP",
+      "CIS",
+
+      // Operators
+
+      "+",
+      "-",
+      "*",
+      "/",
+      "^",
+
+      // analog keywords
+
+      "CAPTURE",
+      "DEFCAL",
+      "DEFFRAME",
+      "DEFWAVEFORM",
+      "DELAY",
+      "FENCE",
+      "HARDWARE-OBJECT",
+      "INITIAL-FREQUENCY",
+      "CENTER-FREQUENCY",
+      $.nonblocking,
+      "PULSE",
+      "SAMPLE-RATE",
+      "SET-FREQUENCY",
+      "SHIFT-FREQUENCY",
+      "SET-PHASE",
+      "SET-SCALE",
+      "SHIFT-PHASE",
+      "SWAP-PHASE",
+      "RAW-CAPTURE",
+      "FILTER-NODE",
+
+      // Modifiers
+
+      "CONTROLLED",
+      "DAGGER",
+      "FORKED",
+    ),
+
+    name: $ => $.identifier,
+    identifier: _ => /[_A-Za-z](([_\-A-Za-z0-9])*([_A-Za-z0-9]))?/,
     _newline_tab: $ => seq($._newline, choice("    ", "\t")),
-    _newline: $ => "\n",
+    _newline: _ => "\n",
 
     // https://github.com/lark-parser/lark/blob/master/lark/grammars/common.lark
     _float: $ => choice(
@@ -292,14 +494,12 @@ module.exports = grammar({
       seq($._int, ".", optional($._int)),
       seq(".", $._int),
     ),
-    _signed_int: $ => seq(choice("+", "-"), $.int),
-    _int: $ => repeat1($.digit),
-    _digit: $ => /0-9/,
-    _letter: $ => /A-Za-z/,
+    _signed_int: $ => seq(choice("+", "-"), $._int),
+    _int: _ => repeat1(/0-9/),
     _string: $ => $._escaped_string,
-    _escaped_string: $ => seq('"', _string_esc_inner, '"'),
-    _string_esc_inner: $ => seq($._string_inner, /(?<!\\)(\\\\)*?/),
-    _string_inner: $ => /.*?/,
+    _escaped_string: $ => seq('"', $._string_esc_inner, '"'),
+    _string_esc_inner: $ => seq($._string_inner, /(\\\\)*?/),
+    _string_inner: _ => /.*?/,
 
   },
 });

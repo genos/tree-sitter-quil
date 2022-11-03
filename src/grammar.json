@@ -1,9 +1,2767 @@
 {
   "name": "quil",
   "rules": {
-    "source_file": {
+    "quil": {
+      "type": "SYMBOL",
+      "name": "_all_instr"
+    },
+    "_all_instr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "comment"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_gate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_circuit"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_waveform"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_calibration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_measure_calibration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "instr"
+        }
+      ]
+    },
+    "instr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "fence"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pulse"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delay"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_frequency"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shift_frequency"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "shift_phase"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_phase"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "swap_phase"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "set_scale"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "declare"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "capture"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "raw_capture"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "pragma"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "measure"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "halt"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gate"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nop"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_label"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "jump"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "jump_when"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "jump_unless"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "reset"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "wait"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "store"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "load"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "convert"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "exchange"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "move"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "classical_unary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "classical_binary"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "classical_comparison"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "include"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "gate_no_qubits"
+        }
+      ]
+    },
+    "comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "#"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[^\\n]*"
+          },
+          {
+            "type": "STRING",
+            "value": "\n"
+          }
+        ]
+      }
+    },
+    "def_gate": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "def_gate_matrix"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_gate_as_permutation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "def_pauli_gate"
+        }
+      ]
+    },
+    "def_gate_matrix": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFGATE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "AS"
+                },
+                {
+                  "type": "STRING",
+                  "value": "MATRIX"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variables"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "matrix"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "def_gate_as_permutation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFGATE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "STRING",
+          "value": "AS"
+        },
+        {
+          "type": "STRING",
+          "value": "PERMUTATION"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_newline_tab"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "matrix_row"
+        }
+      ]
+    },
+    "def_pauli_gate": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFGATE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variables"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit_variables"
+        },
+        {
+          "type": "STRING",
+          "value": "AS"
+        },
+        {
+          "type": "STRING",
+          "value": "PAULI-SUM"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_newline_tab"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "pauli_term"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "pauli_term": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit_variables"
+        }
+      ]
+    },
+    "def_circuit": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFCIRCUIT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variables"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "qubit_designator"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "indented_instrs"
+        }
+      ]
+    },
+    "def_frame": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFFRAME"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ":"
+              },
+              {
+                "type": "REPEAT1",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "frame_spec"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "frame_spec": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_newline_tab"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame_attr"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_string"
+            }
+          ]
+        }
+      ]
+    },
+    "frame_attr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SAMPLE-RATE"
+        },
+        {
+          "type": "STRING",
+          "value": "INITIAL-FREQUENCY"
+        },
+        {
+          "type": "STRING",
+          "value": "DIRECTION"
+        },
+        {
+          "type": "STRING",
+          "value": "HARDWARE-OBJECT"
+        },
+        {
+          "type": "STRING",
+          "value": "CENTER-FREQUENCY"
+        }
+      ]
+    },
+    "def_waveform": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFWAVEFORM"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "waveform_name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "params"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "matrix"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "def_calibration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFCAL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "params"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "qubit_designator"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "indented_instrs"
+        }
+      ]
+    },
+    "def_measure_calibration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFCAL"
+        },
+        {
+          "type": "STRING",
+          "value": "MEASURE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit_designator"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "name"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "indented_instrs"
+        }
+      ]
+    },
+    "gate": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "modifiers"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "params"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "qubit_designator"
+          }
+        }
+      ]
+    },
+    "gate_no_qubits": {
+      "type": "SYMBOL",
+      "name": "name"
+    },
+    "modifiers": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "modifier"
+      }
+    },
+    "modifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CONTROLLED"
+        },
+        {
+          "type": "STRING",
+          "value": "DAGGER"
+        },
+        {
+          "type": "STRING",
+          "value": "FORKED"
+        }
+      ]
+    },
+    "indented_instrs": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_newline_tab"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "instr"
+          }
+        ]
+      }
+    },
+    "params": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "param"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "param"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "param": {
+      "type": "SYMBOL",
+      "name": "expression"
+    },
+    "matrix": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_newline_tab"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "matrix_row"
+          }
+        ]
+      }
+    },
+    "matrix_row": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "expression": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "product"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": "+"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "expression"
+              },
+              {
+                "type": "STRING",
+                "value": "-"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "product"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "product": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "power"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "product"
+            },
+            {
+              "type": "STRING",
+              "value": "*"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "power"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "product"
+            },
+            {
+              "type": "STRING",
+              "value": "/"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "power"
+            }
+          ]
+        }
+      ]
+    },
+    "power": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "atom"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "atom"
+            },
+            {
+              "type": "STRING",
+              "value": "^"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "power"
+            }
+          ]
+        }
+      ]
+    },
+    "atom": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "-"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "atom"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "+"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "atom"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "function"
+            },
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "("
+            },
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "STRING",
+              "value": ")"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "variables": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": ","
+              },
+              {
+                "type": "SYMBOL",
+                "name": "variable"
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
+    "variable": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "%"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "fence": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "FENCE"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "FENCE"
+            },
+            {
+              "type": "REPEAT1",
+              "content": {
+                "type": "SYMBOL",
+                "name": "qubit_designator"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "pulse": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "nonblocking"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "PULSE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "waveform"
+        }
+      ]
+    },
+    "delay": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "delay_qubits"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "delay_frames"
+        }
+      ]
+    },
+    "delay_qubits": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DELAY"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "qubit_designator"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "expression"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "delay_frames": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DELAY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit_designator"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "\""
+              },
+              {
+                "type": "SYMBOL",
+                "name": "name"
+              },
+              {
+                "type": "STRING",
+                "value": "\""
+              }
+            ]
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "set_frequency": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SET-FREQUENCY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "shift_frequency": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SHIFT-FREQUENCY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "shift_phase": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SHIFT-PHASE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "set_phase": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SET-PHASE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "swap_phase": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SWAP-PHASE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "set_scale": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SET-SCALE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "declare": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DECLARE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "["
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_int"
+                },
+                {
+                  "type": "STRING",
+                  "value": "]"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "SHARING"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "offset_descriptor"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "offset_descriptor": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "OFFSET"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_int"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
+    },
+    "capture": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "nonblocking"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "CAPTURE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "waveform"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "raw_capture": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "nonblocking"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "RAW-CAPTURE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "frame"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "waveform"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "addr": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "identifier"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              },
+              {
+                "type": "STRING",
+                "value": "["
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_int"
+              },
+              {
+                "type": "STRING",
+                "value": "]"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "pragma": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "PRAGMA"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "keyword"
+            }
+          ]
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "pragma_name"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_string"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "pragma_name": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC_LEFT",
+          "value": 3,
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 2,
+          "content": {
+            "type": "SYMBOL",
+            "name": "keyword"
+          }
+        },
+        {
+          "type": "PREC_LEFT",
+          "value": 1,
+          "content": {
+            "type": "SYMBOL",
+            "name": "_int"
+          }
+        }
+      ]
+    },
+    "measure": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "MEASURE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit_designator"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "halt": {
       "type": "STRING",
-      "value": "hello"
+      "value": "HALT"
+    },
+    "nop": {
+      "type": "STRING",
+      "value": "NOP"
+    },
+    "include": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "INCLUDE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string"
+        }
+      ]
+    },
+    "def_label": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "LABEL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label"
+        }
+      ]
+    },
+    "jump": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "JUMP"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label"
+        }
+      ]
+    },
+    "jump_when": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "JUMP-WHEN"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label"
+        }
+      ]
+    },
+    "jump_unless": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "JUMP-UNLESS"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label"
+        }
+      ]
+    },
+    "label": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        }
+      ]
+    },
+    "reset": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "RESET"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "qubit"
+        }
+      ]
+    },
+    "wait": {
+      "type": "STRING",
+      "value": "WAIT"
+    },
+    "store": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "STORE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "number"
+            }
+          ]
+        }
+      ]
+    },
+    "load": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "LOAD"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "convert": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "CONVERT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "exchange": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "EXCHANGE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "move": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "MOVE"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "signed_number"
+            }
+          ]
+        }
+      ]
+    },
+    "classical_unary": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "NEG"
+            },
+            {
+              "type": "STRING",
+              "value": "NOT"
+            },
+            {
+              "type": "STRING",
+              "value": "TRUE"
+            },
+            {
+              "type": "STRING",
+              "value": "FALSE"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        }
+      ]
+    },
+    "classical_binary": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "logical_binary_op"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "arithmetic_binary_op"
+        }
+      ]
+    },
+    "logical_binary_op": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "AND"
+            },
+            {
+              "type": "STRING",
+              "value": "OR"
+            },
+            {
+              "type": "STRING",
+              "value": "IOR"
+            },
+            {
+              "type": "STRING",
+              "value": "XOR"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "int_n"
+            }
+          ]
+        }
+      ]
+    },
+    "arithmetic_binary_op": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "ADD"
+            },
+            {
+              "type": "STRING",
+              "value": "SUB"
+            },
+            {
+              "type": "STRING",
+              "value": "MUL"
+            },
+            {
+              "type": "STRING",
+              "value": "DIV"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "signed_number"
+            }
+          ]
+        }
+      ]
+    },
+    "classical_comparison": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "EQ"
+            },
+            {
+              "type": "STRING",
+              "value": "GT"
+            },
+            {
+              "type": "STRING",
+              "value": "GE"
+            },
+            {
+              "type": "STRING",
+              "value": "LT"
+            },
+            {
+              "type": "STRING",
+              "value": "LE"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "addr"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "addr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "signed_number"
+            }
+          ]
+        }
+      ]
+    },
+    "qubit_designator": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "qubit"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable"
+          }
+        ]
+      }
+    },
+    "qubit": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SYMBOL",
+        "name": "int_n"
+      }
+    },
+    "qubit_variables": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "SYMBOL",
+        "name": "qubit_variable"
+      }
+    },
+    "qubit_variable": {
+      "type": "SYMBOL",
+      "name": "identifier"
+    },
+    "named_param": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        }
+      ]
+    },
+    "waveform": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "waveform_name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "("
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "named_param"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "named_param"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "STRING",
+                  "value": ")"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "waveform_name": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "/"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "name"
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "frame": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "SYMBOL",
+            "name": "qubit_designator"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "SYMBOL",
+          "name": "name"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "function": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "SIN"
+        },
+        {
+          "type": "STRING",
+          "value": "COS"
+        },
+        {
+          "type": "STRING",
+          "value": "SQRT"
+        },
+        {
+          "type": "STRING",
+          "value": "EXP"
+        },
+        {
+          "type": "STRING",
+          "value": "CIS"
+        }
+      ]
+    },
+    "number": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "int_n"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "float_n"
+                }
+              ]
+            },
+            {
+              "type": "STRING",
+              "value": "i"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "int_n"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "float_n"
+        },
+        {
+          "type": "STRING",
+          "value": "i"
+        },
+        {
+          "type": "STRING",
+          "value": "pi"
+        }
+      ]
+    },
+    "int_n": {
+      "type": "PREC_LEFT",
+      "value": 1,
+      "content": {
+        "type": "SYMBOL",
+        "name": "_int"
+      }
+    },
+    "float_n": {
+      "type": "SYMBOL",
+      "name": "_float"
+    },
+    "signed_number": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "+"
+            },
+            {
+              "type": "STRING",
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        }
+      ]
+    },
+    "nonblocking": {
+      "type": "STRING",
+      "value": "NONBLOCKING"
+    },
+    "keyword": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFGATE"
+        },
+        {
+          "type": "STRING",
+          "value": "DEFCIRCUIT"
+        },
+        {
+          "type": "STRING",
+          "value": "MEASURE"
+        },
+        {
+          "type": "STRING",
+          "value": "LABEL"
+        },
+        {
+          "type": "STRING",
+          "value": "HALT"
+        },
+        {
+          "type": "STRING",
+          "value": "JUMP"
+        },
+        {
+          "type": "STRING",
+          "value": "JUMP-WHEN"
+        },
+        {
+          "type": "STRING",
+          "value": "JUMP-UNLESS"
+        },
+        {
+          "type": "STRING",
+          "value": "RESET"
+        },
+        {
+          "type": "STRING",
+          "value": "WAIT"
+        },
+        {
+          "type": "STRING",
+          "value": "NOP"
+        },
+        {
+          "type": "STRING",
+          "value": "INCLUDE"
+        },
+        {
+          "type": "STRING",
+          "value": "PRAGMA"
+        },
+        {
+          "type": "STRING",
+          "value": "DECLARE"
+        },
+        {
+          "type": "STRING",
+          "value": "SHARING"
+        },
+        {
+          "type": "STRING",
+          "value": "OFFSET"
+        },
+        {
+          "type": "STRING",
+          "value": "AS"
+        },
+        {
+          "type": "STRING",
+          "value": "MATRIX"
+        },
+        {
+          "type": "STRING",
+          "value": "PERMUTATION"
+        },
+        {
+          "type": "STRING",
+          "value": "PAULI-SUM"
+        },
+        {
+          "type": "STRING",
+          "value": "NEG"
+        },
+        {
+          "type": "STRING",
+          "value": "NOT"
+        },
+        {
+          "type": "STRING",
+          "value": "TRUE"
+        },
+        {
+          "type": "STRING",
+          "value": "FALSE"
+        },
+        {
+          "type": "STRING",
+          "value": "AND"
+        },
+        {
+          "type": "STRING",
+          "value": "IOR"
+        },
+        {
+          "type": "STRING",
+          "value": "XOR"
+        },
+        {
+          "type": "STRING",
+          "value": "OR"
+        },
+        {
+          "type": "STRING",
+          "value": "ADD"
+        },
+        {
+          "type": "STRING",
+          "value": "SUB"
+        },
+        {
+          "type": "STRING",
+          "value": "MUL"
+        },
+        {
+          "type": "STRING",
+          "value": "DIV"
+        },
+        {
+          "type": "STRING",
+          "value": "MOVE"
+        },
+        {
+          "type": "STRING",
+          "value": "EXCHANGE"
+        },
+        {
+          "type": "STRING",
+          "value": "CONVERT"
+        },
+        {
+          "type": "STRING",
+          "value": "EQ"
+        },
+        {
+          "type": "STRING",
+          "value": "GT"
+        },
+        {
+          "type": "STRING",
+          "value": "GE"
+        },
+        {
+          "type": "STRING",
+          "value": "LT"
+        },
+        {
+          "type": "STRING",
+          "value": "LE"
+        },
+        {
+          "type": "STRING",
+          "value": "LOAD"
+        },
+        {
+          "type": "STRING",
+          "value": "STORE"
+        },
+        {
+          "type": "STRING",
+          "value": "pi"
+        },
+        {
+          "type": "STRING",
+          "value": "i"
+        },
+        {
+          "type": "STRING",
+          "value": "SIN"
+        },
+        {
+          "type": "STRING",
+          "value": "COS"
+        },
+        {
+          "type": "STRING",
+          "value": "SQRT"
+        },
+        {
+          "type": "STRING",
+          "value": "EXP"
+        },
+        {
+          "type": "STRING",
+          "value": "CIS"
+        },
+        {
+          "type": "STRING",
+          "value": "+"
+        },
+        {
+          "type": "STRING",
+          "value": "-"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
+        },
+        {
+          "type": "STRING",
+          "value": "/"
+        },
+        {
+          "type": "STRING",
+          "value": "^"
+        },
+        {
+          "type": "STRING",
+          "value": "CAPTURE"
+        },
+        {
+          "type": "STRING",
+          "value": "DEFCAL"
+        },
+        {
+          "type": "STRING",
+          "value": "DEFFRAME"
+        },
+        {
+          "type": "STRING",
+          "value": "DEFWAVEFORM"
+        },
+        {
+          "type": "STRING",
+          "value": "DELAY"
+        },
+        {
+          "type": "STRING",
+          "value": "FENCE"
+        },
+        {
+          "type": "STRING",
+          "value": "HARDWARE-OBJECT"
+        },
+        {
+          "type": "STRING",
+          "value": "INITIAL-FREQUENCY"
+        },
+        {
+          "type": "STRING",
+          "value": "CENTER-FREQUENCY"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "nonblocking"
+        },
+        {
+          "type": "STRING",
+          "value": "PULSE"
+        },
+        {
+          "type": "STRING",
+          "value": "SAMPLE-RATE"
+        },
+        {
+          "type": "STRING",
+          "value": "SET-FREQUENCY"
+        },
+        {
+          "type": "STRING",
+          "value": "SHIFT-FREQUENCY"
+        },
+        {
+          "type": "STRING",
+          "value": "SET-PHASE"
+        },
+        {
+          "type": "STRING",
+          "value": "SET-SCALE"
+        },
+        {
+          "type": "STRING",
+          "value": "SHIFT-PHASE"
+        },
+        {
+          "type": "STRING",
+          "value": "SWAP-PHASE"
+        },
+        {
+          "type": "STRING",
+          "value": "RAW-CAPTURE"
+        },
+        {
+          "type": "STRING",
+          "value": "FILTER-NODE"
+        },
+        {
+          "type": "STRING",
+          "value": "CONTROLLED"
+        },
+        {
+          "type": "STRING",
+          "value": "DAGGER"
+        },
+        {
+          "type": "STRING",
+          "value": "FORKED"
+        }
+      ]
+    },
+    "name": {
+      "type": "SYMBOL",
+      "name": "identifier"
+    },
+    "identifier": {
+      "type": "PATTERN",
+      "value": "[_A-Za-z](([_\\-A-Za-z0-9])*([_A-Za-z0-9]))?"
+    },
+    "_newline_tab": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_newline"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "    "
+            },
+            {
+              "type": "STRING",
+              "value": "\t"
+            }
+          ]
+        }
+      ]
+    },
+    "_newline": {
+      "type": "STRING",
+      "value": "\n"
+    },
+    "_float": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_int"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "e"
+                },
+                {
+                  "type": "STRING",
+                  "value": "E"
+                }
+              ]
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_signed_int"
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_decimal"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "STRING",
+                          "value": "e"
+                        },
+                        {
+                          "type": "STRING",
+                          "value": "E"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_signed_int"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "_decimal": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_int"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_int"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "SYMBOL",
+              "name": "_int"
+            }
+          ]
+        }
+      ]
+    },
+    "_signed_int": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "+"
+            },
+            {
+              "type": "STRING",
+              "value": "-"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_int"
+        }
+      ]
+    },
+    "_int": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "PATTERN",
+        "value": "0-9"
+      }
+    },
+    "_string": {
+      "type": "SYMBOL",
+      "name": "_escaped_string"
+    },
+    "_escaped_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_string_esc_inner"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "_string_esc_inner": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_string_inner"
+        },
+        {
+          "type": "PATTERN",
+          "value": "(\\\\\\\\)*?"
+        }
+      ]
+    },
+    "_string_inner": {
+      "type": "PATTERN",
+      "value": ".*?"
     }
   },
   "extras": [
