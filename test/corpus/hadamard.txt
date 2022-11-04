@@ -8,5 +8,5 @@ H 0
 
 (quil
   (gate
-    (name (identifier))
+    (identifier)
     (qubit_designator)))

@@ -2,11 +2,6 @@
 module.exports = grammar({
   name: "quil",
 
-  // TODO whitespace?
-    // extras: $ => [
-    //   /^\n$/, // skip blank lines
-    // ],  // handle other whitespace ourselves
-
   rules: {
     quil: $ => repeat(seq($._all_instr, repeat1($._newline))),
 
@@ -66,7 +61,7 @@ module.exports = grammar({
 
     def_gate_matrix: $ => seq(
       "DEFGATE",
-      $.name,
+      $.identifier,
       optional(seq("AS", "MATRIX")),
       optional($.variables),
       ":",
@@ -75,7 +70,7 @@ module.exports = grammar({
 
     def_gate_as_permutation: $ => seq(
       "DEFGATE",
-      $.name,
+      $.identifier,
       "AS",
       "PERMUTATION",
       ":",
@@ -86,7 +81,7 @@ module.exports = grammar({
     def_pauli_gate: $ => prec.left(1,
       seq(
         "DEFGATE",
-        $.name,
+        $.identifier,
         optional($.variables),
         $.qubit_variables,
         "AS",
@@ -96,11 +91,11 @@ module.exports = grammar({
       ),
     ),
 
-    pauli_term: $ => seq($.name, "(", $.expression, ")", $.qubit_variables),
+    pauli_term: $ => seq($.identifier, "(", $.expression, ")", $.qubit_variables),
 
     def_circuit: $ => seq(
       "DEFCIRCUIT",
-      $.name,
+      $.identifier,
       optional($.variables),
       repeat($.qubit_designator),
       ":",
@@ -136,7 +131,7 @@ module.exports = grammar({
 
     def_calibration: $ => seq(
       "DEFCAL",
-      $.name,
+      $.identifier,
       optional($.params),
       repeat1($.qubit_designator),
       ":",
@@ -147,30 +142,28 @@ module.exports = grammar({
       "DEFCAL",
       "MEASURE",
       $.qubit_designator,
-      optional($.name),
+      optional($.identifier),
       ":",
       $._indented_instrs,
     ),
 
     gate: $ => seq(
       optional($.modifiers),
-      $.name,
+      $.identifier,
       optional($.params),
       repeat($.qubit_designator),
     ),
 
-    modifiers: $ => repeat1($.modifier),
-    modifier: _ => choice("CONTROLLED", "DAGGER", "FORKED"),
+    modifiers: _ => repeat1(choice("CONTROLLED", "DAGGER", "FORKED")),
 
     _indented_instrs: $ => prec.left(1, repeat1(seq($._newline_tab, $._instr))),
 
     params: $ => seq(
         "(",
-        $.param,
-        repeat(seq(",", $.param)),
+        $.expression,
+        repeat(seq(",", $.expression)),
         ")"
     ),
-    param: $ => $.expression,
 
     matrix: $ => prec.left(1, repeat1(seq($._newline_tab, $.matrix_row))),
     matrix_row: $ => seq(
@@ -179,20 +172,20 @@ module.exports = grammar({
     ),
 
     expression: $ => choice(
-      prec.left(3, $.product),
+      prec.left(3, $._product),
       prec.left(2, seq($.expression, "+", $.expression)),
-      prec.left(1, seq($.expression, "-", $.product)),
+      prec.left(1, seq($.expression, "-", $._product)),
     ),
-    product: $ => choice(
-      $.power,
-      seq($.product, "*", $.power),
-      seq($.product, "/", $.power),
+    _product: $ => choice(
+      $._power,
+      seq($._product, "*", $._power),
+      seq($._product, "/", $._power),
     ),
-    power: $ => choice($.atom, seq($.atom, "^", $.power)),
-    atom: $ => choice(
+    _power: $ => choice($._atom, seq($._atom, "^", $._power)),
+    _atom: $ => choice(
       $.number,
-      seq("-", $.atom),
-      seq("+", $.atom),
+      seq("-", $._atom),
+      seq("+", $._atom),
       seq($.function, "(", $.expression, ")"),
       seq("(", $.expression, ")"),
       $.variable,
@@ -217,7 +210,7 @@ module.exports = grammar({
     delay_frames: $ => seq(
       "DELAY",
       $.qubit_designator,
-      repeat1(seq('"', $.name, '"')),
+      repeat1(seq('"', $.identifier, '"')),
       $.expression,
     ),
 
@@ -312,12 +305,12 @@ module.exports = grammar({
     jump: $ => seq("JUMP", $.label),
     jump_when: $ => seq("JUMP-WHEN", $.label),
     jump_unless: $ => seq("JUMP-UNLESS", $.label),
-    label: $ => seq("@", $.name),
+    label: $ => seq("@", $.identifier),
 
     reset: $ => seq("RESET", $.qubit),
     wait: _ => "WAIT",
-    store: $ => seq("STORE", $.name, $.addr, choice($.addr, $.number)),
-    load: $ => seq("LOAD", $.addr, $.name, $.addr),
+    store: $ => seq("STORE", $.identifier, $.addr, choice($.addr, $.number)),
+    load: $ => seq("LOAD", $.addr, $.identifier, $.addr),
     convert: $ => seq("CONVERT", $.addr, $.addr),
     exchange: $ => seq("EXCHANGE", $.addr, $.addr),
     move: $ => seq("MOVE", $.addr, choice($.addr, $.signed_number)),
@@ -329,7 +322,7 @@ module.exports = grammar({
     logical_binary_op: $ => seq(
       choice("AND", "OR", "IOR", "XOR"),
       $.addr,
-      choice($.addr, $.int_n),
+      choice($.addr, $._int),
     ),
     arithmetic_binary_op: $ => seq(
       choice("ADD", "SUB", "MUL", "DIV"),
@@ -346,7 +339,7 @@ module.exports = grammar({
     // Qubits, frames, waveforms
 
     qubit_designator: $ => prec.left(1, choice($.qubit, $.variable)),
-    qubit: $ => prec.left(1, $.int_n),
+    qubit: $ => prec.left(1, $._int),
     qubit_variables: $ => repeat1($.qubit_variable),
     qubit_variable: $ => $.identifier,
     named_param: $ => seq($.identifier, ":", $.expression),
@@ -361,22 +354,20 @@ module.exports = grammar({
         ),
       ),
     ),
-    waveform_name: $ => seq($.name, optional(seq("/", $.name))),
-    frame: $ => seq(repeat1($.qubit_designator), '"', $.name, '"'),
+    waveform_name: $ => seq($.identifier, optional(seq("/", $.identifier))),
+    frame: $ => seq(repeat1($.qubit_designator), '"', $.identifier, '"'),
 
     function: _ => choice("SIN", "COS", "SQRT", "EXP", "CIS"),
 
     // Numbers
 
     number: $ => choice(
-      seq(choice($.int_n, $.float_n), "i"),
-      $.int_n,
-      $.float_n,
+      seq(choice($._float, $._int), "i"),
       "i",
       "pi",
+      $._float,
+      $._int,
     ),
-    int_n: $ => prec.left(1, $._int),
-    float_n: $ => $._float,
     signed_number: $ => seq(choice("+", "-"), $.number),
 
     // Lexer
@@ -485,8 +476,7 @@ module.exports = grammar({
       "FORKED",
     ),
 
-    name: $ => $.identifier,
-    identifier: _ => /[_A-Za-z](([_\-A-Za-z0-9])*([_A-Za-z0-9]))?/,
+    identifier: _ => /[^(i|pi)][_A-Za-z](([_\-A-Za-z0-9])*([_A-Za-z0-9]))?/,
     _newline_tab: $ => seq($._newline, choice("    ", "\t")),
     _newline: _ => "\n",
 

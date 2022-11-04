@@ -1,0 +1,32 @@
+=====================
+Modifiers No Qubits
+=====================
+
+CONTROLLED QWERTYUIOP
+DAGGER QWERTYUIOP
+FORKED QWERTYUIOP
+CONTROLLED DAGGER QWERTYUIOP
+CONTROLLED FORKED QWERTYUIOP
+DAGGER FORKED QWERTYUIOP
+
+---
+
+(quil
+  (gate
+    (modifiers)
+      (identifier))
+  (gate
+    (modifiers)
+      (identifier))
+  (gate
+    (modifiers)
+      (identifier))
+  (gate
+    (modifiers)
+      (identifier))
+  (gate
+    (modifiers)
+      (identifier))
+  (gate
+    (modifiers)
+      (identifier)))

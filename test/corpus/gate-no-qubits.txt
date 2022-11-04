@@ -7,6 +7,4 @@ QWERTYUIOP
 ---
 
 (quil
-  (gate
-    (name
-      (identifier))))
+  (gate (identifier)))
