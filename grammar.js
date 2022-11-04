@@ -31,9 +31,9 @@ module.exports = grammar({
       $.raw_capture,
       $.pragma,
       $.measure,
-      $.halt,
+      "HALT",
       $.gate,
-      $.nop,
+      "NOP",
       $.def_label,
       $.jump,
       $.jump_when,
@@ -199,7 +199,7 @@ module.exports = grammar({
 
     fence: $ => choice("FENCE", seq("FENCE", repeat1($.qubit_designator))),
     pulse: $ => seq(
-      optional($.nonblocking),
+      optional("NONBLOCKING"),
       "PULSE",
       $.frame,
       $.waveform,
@@ -260,7 +260,7 @@ module.exports = grammar({
     offset_descriptor: $ => seq("OFFSET", $._int, $.identifier),
 
     capture: $ => seq(
-      optional($.nonblocking),
+      optional("NONBLOCKING"),
       "CAPTURE",
       $.frame,
       $.waveform,
@@ -268,7 +268,7 @@ module.exports = grammar({
     ),
 
     raw_capture: $ => seq(
-      optional($.nonblocking),
+      optional("NONBLOCKING"),
       "RAW-CAPTURE",
       $.frame,
       $.waveform,
@@ -293,10 +293,6 @@ module.exports = grammar({
     ),
 
     measure: $ => seq("MEASURE", $.qubit_designator, optional($.addr)),
-
-    halt: _ => "HALT",
-
-    nop: _ => "NOP",
 
     include: $ => seq("INCLUDE", $._string),
 
@@ -372,9 +368,7 @@ module.exports = grammar({
 
     // Lexer
 
-    nonblocking: _ => "NONBLOCKING",
-
-    keyword: $ => choice(
+    keyword: _ => choice(
 
       "DEFGATE",
       "DEFCIRCUIT",
@@ -457,7 +451,7 @@ module.exports = grammar({
       "HARDWARE-OBJECT",
       "INITIAL-FREQUENCY",
       "CENTER-FREQUENCY",
-      $.nonblocking,
+      "NONBLOCKING",
       "PULSE",
       "SAMPLE-RATE",
       "SET-FREQUENCY",

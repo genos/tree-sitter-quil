@@ -117,16 +117,16 @@
           "name": "measure"
         },
         {
-          "type": "SYMBOL",
-          "name": "halt"
+          "type": "STRING",
+          "value": "HALT"
         },
         {
           "type": "SYMBOL",
           "name": "gate"
         },
         {
-          "type": "SYMBOL",
-          "name": "nop"
+          "type": "STRING",
+          "value": "NOP"
         },
         {
           "type": "SYMBOL",
@@ -1087,8 +1087,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "nonblocking"
+              "type": "STRING",
+              "value": "NONBLOCKING"
             },
             {
               "type": "BLANK"
@@ -1392,8 +1392,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "nonblocking"
+              "type": "STRING",
+              "value": "NONBLOCKING"
             },
             {
               "type": "BLANK"
@@ -1425,8 +1425,8 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "nonblocking"
+              "type": "STRING",
+              "value": "NONBLOCKING"
             },
             {
               "type": "BLANK"
@@ -1591,14 +1591,6 @@
           ]
         }
       ]
-    },
-    "halt": {
-      "type": "STRING",
-      "value": "HALT"
-    },
-    "nop": {
-      "type": "STRING",
-      "value": "NOP"
     },
     "include": {
       "type": "SEQ",
@@ -2233,10 +2225,6 @@
         }
       ]
     },
-    "nonblocking": {
-      "type": "STRING",
-      "value": "NONBLOCKING"
-    },
     "keyword": {
       "type": "CHOICE",
       "members": [
@@ -2493,8 +2481,8 @@
           "value": "CENTER-FREQUENCY"
         },
         {
-          "type": "SYMBOL",
-          "name": "nonblocking"
+          "type": "STRING",
+          "value": "NONBLOCKING"
         },
         {
           "type": "STRING",
