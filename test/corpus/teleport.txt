@@ -1,6 +1,6 @@
-=====================
-Teleportaion Circuit
-=====================
+======================
+Teleportation Circuit
+======================
 
 DECLARE ro BIT[2]
 
