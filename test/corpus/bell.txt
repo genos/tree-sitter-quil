@@ -1,0 +1,17 @@
+==========
+Bell Test
+==========
+
+H 0
+CNOT 0 1
+
+---
+
+(quil
+  (gate
+    (identifier)
+    (qubit_designator))
+  (gate
+    (identifier)
+    (qubit_designator)
+    (qubit_designator)))

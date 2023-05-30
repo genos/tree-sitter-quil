@@ -1,0 +1,38 @@
+=====================
+Params No Qubits
+=====================
+
+QWERTYUIOP(i)
+QWERTYUIOP(pi)
+QWERTYUIOP(2i)
+QWERTYUIOP(0)
+QWERTYUIOP(1.234)
+
+---
+
+(quil
+  (gate
+      (identifier)
+    (params
+      (expression
+        (number))))
+  (gate
+      (identifier)
+    (params
+      (expression
+        (number))))
+  (gate
+      (identifier)
+    (params
+      (expression
+        (number))))
+  (gate
+      (identifier)
+    (params
+      (expression
+        (number)))))
+  (gate
+      (identifier)
+    (params
+      (expression
+        (number))))

@@ -1,0 +1,2109 @@
+[
+  {
+    "type": "addr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "arithmetic_binary_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "signed_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "capture",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        },
+        {
+          "type": "waveform",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "classical_binary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "arithmetic_binary_op",
+          "named": true
+        },
+        {
+          "type": "logical_binary_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "classical_comparison",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "signed_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "classical_unary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "convert",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "declare",
+    "named": true,
+    "fields": {
+      "declaration": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "[",
+            "named": false
+          },
+          {
+            "type": "]",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "variable": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "offset_descriptor",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_calibration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
+          "named": true
+        },
+        {
+          "type": "params",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_circuit",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "variables",
+          "named": true
+        },
+        {
+          "type": "wait",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "frame",
+          "named": true
+        },
+        {
+          "type": "frame_spec",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_gate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "def_gate_as_permutation",
+          "named": true
+        },
+        {
+          "type": "def_gate_matrix",
+          "named": true
+        },
+        {
+          "type": "def_pauli_gate",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_gate_as_permutation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "matrix_row",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_gate_matrix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "matrix",
+          "named": true
+        },
+        {
+          "type": "variables",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_measure_calibration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_pauli_gate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "pauli_term",
+          "named": true
+        },
+        {
+          "type": "qubit_variables",
+          "named": true
+        },
+        {
+          "type": "variables",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "def_waveform",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "matrix",
+          "named": true
+        },
+        {
+          "type": "params",
+          "named": true
+        },
+        {
+          "type": "waveform_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delay",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "delay_frames",
+          "named": true
+        },
+        {
+          "type": "delay_qubits",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delay_frames",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "delay_qubits",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exchange",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "function",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "fence",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "frame",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "frame_attr",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "frame_spec",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame_attr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "gate",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "modifiers",
+          "named": true
+        },
+        {
+          "type": "params",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "include",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "jump",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "jump_unless",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "jump_when",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "label",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "keyword",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "label",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "load",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "logical_binary_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "matrix",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "matrix_row",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "matrix_row",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "measure",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "qubit_designator",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "modifiers",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "move",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "signed_number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "named_param",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "number",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "offset_descriptor",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "params",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pauli_term",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "qubit_variables",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pragma",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        },
+        {
+          "type": "pragma_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pragma_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "keyword",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "pulse",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "frame",
+          "named": true
+        },
+        {
+          "type": "waveform",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qubit",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "qubit_designator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "qubit",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qubit_variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "qubit_variables",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "qubit_variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "quil",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "capture",
+          "named": true
+        },
+        {
+          "type": "classical_binary",
+          "named": true
+        },
+        {
+          "type": "classical_comparison",
+          "named": true
+        },
+        {
+          "type": "classical_unary",
+          "named": true
+        },
+        {
+          "type": "comment",
+          "named": true
+        },
+        {
+          "type": "convert",
+          "named": true
+        },
+        {
+          "type": "declare",
+          "named": true
+        },
+        {
+          "type": "def_calibration",
+          "named": true
+        },
+        {
+          "type": "def_circuit",
+          "named": true
+        },
+        {
+          "type": "def_frame",
+          "named": true
+        },
+        {
+          "type": "def_gate",
+          "named": true
+        },
+        {
+          "type": "def_label",
+          "named": true
+        },
+        {
+          "type": "def_measure_calibration",
+          "named": true
+        },
+        {
+          "type": "def_waveform",
+          "named": true
+        },
+        {
+          "type": "delay",
+          "named": true
+        },
+        {
+          "type": "exchange",
+          "named": true
+        },
+        {
+          "type": "fence",
+          "named": true
+        },
+        {
+          "type": "gate",
+          "named": true
+        },
+        {
+          "type": "include",
+          "named": true
+        },
+        {
+          "type": "jump",
+          "named": true
+        },
+        {
+          "type": "jump_unless",
+          "named": true
+        },
+        {
+          "type": "jump_when",
+          "named": true
+        },
+        {
+          "type": "load",
+          "named": true
+        },
+        {
+          "type": "measure",
+          "named": true
+        },
+        {
+          "type": "move",
+          "named": true
+        },
+        {
+          "type": "pragma",
+          "named": true
+        },
+        {
+          "type": "pulse",
+          "named": true
+        },
+        {
+          "type": "raw_capture",
+          "named": true
+        },
+        {
+          "type": "reset",
+          "named": true
+        },
+        {
+          "type": "set_frequency",
+          "named": true
+        },
+        {
+          "type": "set_phase",
+          "named": true
+        },
+        {
+          "type": "set_scale",
+          "named": true
+        },
+        {
+          "type": "shift_frequency",
+          "named": true
+        },
+        {
+          "type": "shift_phase",
+          "named": true
+        },
+        {
+          "type": "store",
+          "named": true
+        },
+        {
+          "type": "swap_phase",
+          "named": true
+        },
+        {
+          "type": "wait",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "raw_capture",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        },
+        {
+          "type": "waveform",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "reset",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "qubit",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set_frequency",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set_phase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "set_scale",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shift_frequency",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "shift_phase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "signed_number",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "store",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "addr",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "swap_phase",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "frame",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variable",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "variables",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "wait",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "waveform",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "named_param",
+          "named": true
+        },
+        {
+          "type": "waveform_name",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "waveform_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "\t",
+    "named": false
+  },
+  {
+    "type": "    ",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "%",
+    "named": false
+  },
+  {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
+    "named": false
+  },
+  {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": ":",
+    "named": false
+  },
+  {
+    "type": "@",
+    "named": false
+  },
+  {
+    "type": "ADD",
+    "named": false
+  },
+  {
+    "type": "AND",
+    "named": false
+  },
+  {
+    "type": "AS",
+    "named": false
+  },
+  {
+    "type": "CAPTURE",
+    "named": false
+  },
+  {
+    "type": "CENTER-FREQUENCY",
+    "named": false
+  },
+  {
+    "type": "CIS",
+    "named": false
+  },
+  {
+    "type": "CONTROLLED",
+    "named": false
+  },
+  {
+    "type": "CONVERT",
+    "named": false
+  },
+  {
+    "type": "COS",
+    "named": false
+  },
+  {
+    "type": "DAGGER",
+    "named": false
+  },
+  {
+    "type": "DECLARE",
+    "named": false
+  },
+  {
+    "type": "DEFCAL",
+    "named": false
+  },
+  {
+    "type": "DEFCIRCUIT",
+    "named": false
+  },
+  {
+    "type": "DEFFRAME",
+    "named": false
+  },
+  {
+    "type": "DEFGATE",
+    "named": false
+  },
+  {
+    "type": "DEFWAVEFORM",
+    "named": false
+  },
+  {
+    "type": "DELAY",
+    "named": false
+  },
+  {
+    "type": "DIRECTION",
+    "named": false
+  },
+  {
+    "type": "DIV",
+    "named": false
+  },
+  {
+    "type": "E",
+    "named": false
+  },
+  {
+    "type": "EQ",
+    "named": false
+  },
+  {
+    "type": "EXCHANGE",
+    "named": false
+  },
+  {
+    "type": "EXP",
+    "named": false
+  },
+  {
+    "type": "FALSE",
+    "named": false
+  },
+  {
+    "type": "FENCE",
+    "named": false
+  },
+  {
+    "type": "FILTER-NODE",
+    "named": false
+  },
+  {
+    "type": "FORKED",
+    "named": false
+  },
+  {
+    "type": "GE",
+    "named": false
+  },
+  {
+    "type": "GT",
+    "named": false
+  },
+  {
+    "type": "HALT",
+    "named": false
+  },
+  {
+    "type": "HARDWARE-OBJECT",
+    "named": false
+  },
+  {
+    "type": "INCLUDE",
+    "named": false
+  },
+  {
+    "type": "INITIAL-FREQUENCY",
+    "named": false
+  },
+  {
+    "type": "IOR",
+    "named": false
+  },
+  {
+    "type": "JUMP",
+    "named": false
+  },
+  {
+    "type": "JUMP-UNLESS",
+    "named": false
+  },
+  {
+    "type": "JUMP-WHEN",
+    "named": false
+  },
+  {
+    "type": "LABEL",
+    "named": false
+  },
+  {
+    "type": "LE",
+    "named": false
+  },
+  {
+    "type": "LOAD",
+    "named": false
+  },
+  {
+    "type": "LT",
+    "named": false
+  },
+  {
+    "type": "MATRIX",
+    "named": false
+  },
+  {
+    "type": "MEASURE",
+    "named": false
+  },
+  {
+    "type": "MOVE",
+    "named": false
+  },
+  {
+    "type": "MUL",
+    "named": false
+  },
+  {
+    "type": "NEG",
+    "named": false
+  },
+  {
+    "type": "NONBLOCKING",
+    "named": false
+  },
+  {
+    "type": "NOP",
+    "named": false
+  },
+  {
+    "type": "NOT",
+    "named": false
+  },
+  {
+    "type": "OFFSET",
+    "named": false
+  },
+  {
+    "type": "OR",
+    "named": false
+  },
+  {
+    "type": "PAULI-SUM",
+    "named": false
+  },
+  {
+    "type": "PERMUTATION",
+    "named": false
+  },
+  {
+    "type": "PRAGMA",
+    "named": false
+  },
+  {
+    "type": "PULSE",
+    "named": false
+  },
+  {
+    "type": "RAW-CAPTURE",
+    "named": false
+  },
+  {
+    "type": "RESET",
+    "named": false
+  },
+  {
+    "type": "SAMPLE-RATE",
+    "named": false
+  },
+  {
+    "type": "SET-FREQUENCY",
+    "named": false
+  },
+  {
+    "type": "SET-PHASE",
+    "named": false
+  },
+  {
+    "type": "SET-SCALE",
+    "named": false
+  },
+  {
+    "type": "SHARING",
+    "named": false
+  },
+  {
+    "type": "SHIFT-FREQUENCY",
+    "named": false
+  },
+  {
+    "type": "SHIFT-PHASE",
+    "named": false
+  },
+  {
+    "type": "SIN",
+    "named": false
+  },
+  {
+    "type": "SQRT",
+    "named": false
+  },
+  {
+    "type": "STORE",
+    "named": false
+  },
+  {
+    "type": "SUB",
+    "named": false
+  },
+  {
+    "type": "SWAP-PHASE",
+    "named": false
+  },
+  {
+    "type": "TRUE",
+    "named": false
+  },
+  {
+    "type": "WAIT",
+    "named": false
+  },
+  {
+    "type": "XOR",
+    "named": false
+  },
+  {
+    "type": "[",
+    "named": false
+  },
+  {
+    "type": "]",
+    "named": false
+  },
+  {
+    "type": "^",
+    "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
+  },
+  {
+    "type": "e",
+    "named": false
+  },
+  {
+    "type": "i",
+    "named": false
+  },
+  {
+    "type": "identifier",
+    "named": true
+  },
+  {
+    "type": "pi",
+    "named": false
+  }
+]
